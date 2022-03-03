@@ -1,0 +1,93 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0; padding: 0;
+  }
+
+.chessboard {
+  background-image: url("../img/chessboard.png");
+  display: grid;
+  grid-template-columns: repeat(8, 12.5%);
+  grid-template-rows: repeat(8, 12.5%);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  height: 496px;
+  width: 496px;
+  border: 1px solid black;
+}
+
+.chessfield {
+  display: flex;
+  object-fit: contain;
+}
+
+.chessfield:hover {
+  background-color: rgba(0,0,0,.2);
+  transition: 0.3s background-color;
+}
+
+.marked-chessfield {
+  background-image: url("../img/pieces/movemark.png");
+}
+
+
+.chess-palette {
+    background-image: url("../img/palette.png");
+    display: grid;
+    grid-template-columns: repeat(6, 62px);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    height: 62px;
+    width: 372px;
+    border: 1px solid black
+}
+
+.king {
+  margin: auto;
+  width:45px;
+  height:45px;
+  cursor: pointer;
+  background-image: url("../img/pieces/king.png");
+}
+
+.queen {
+  margin: auto;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  background-image: url("../img/pieces/queen.png");
+}
+
+.rook {
+  margin: auto;
+  width:45px;
+  height:45px;
+  cursor: pointer;
+  background-image: url("../img/pieces/rook.png");
+}
+
+.bishop {
+  margin: auto;
+  width:45px;
+  height:45px;
+  cursor: pointer;
+  background-image: url("../img/pieces/bishop.png");
+}
+
+.knight {
+  margin: auto;
+  width:45px;
+  height:45px;
+  cursor: pointer;
+  background-image: url("../img/pieces/knight.png");
+}
+
+.pawn {
+  margin: auto;
+  width:45px;
+  height:45px;
+  cursor: pointer;
+  background-image: url("../img/pieces/pawn.png");
+}

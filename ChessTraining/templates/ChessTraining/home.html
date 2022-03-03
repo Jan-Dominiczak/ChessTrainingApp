@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html>
+    <head>
+        <title>Chess practice</title>
+        <link rel="stylesheet" href="{% static 'css/ChessTraining.css'%}">
+    </head>
+    <body>
+        <div class="chessboard">
+        </div>
+        <div class="chess-palette">
+        </div>
+        {{ test }}
+        <script>
+            const PIECES = {{collection|safe}}
+        </script>
+        <script src="{% static 'script.js' %}"></script>
+    </body>
+</html>
