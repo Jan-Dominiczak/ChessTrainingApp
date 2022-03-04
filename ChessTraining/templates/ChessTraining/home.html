@@ -13,9 +13,12 @@
         <div class="chess-palette">
         </div>
         {{ test }}
+        <!-- <form action="/validate/" method="POST" id="validation-form"></form> -->
         <script>
-            const PIECES = {{collection|safe}}
+            const PIECES = {{collection|safe}};
         </script>
+        <script src="http://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+
         <script src="{% static 'script.js' %}"></script>
     </body>
 </html>

@@ -48,6 +48,11 @@ const chessGame = {
 
     grabPiece(e) {
         e.stopPropagation();
+        if(this.pieceInHand != null) {
+            this.pieceInHand = null;
+            this.unmarkMoves();
+            return;
+        }
         if(this.pieceInHand == null) {
             this.pieceInHand = e.target;
             let grabbedPiece = document.createElement("piece");
@@ -66,8 +71,6 @@ const chessGame = {
                     let moveLetter = String.fromCharCode(currentFieldId[0].charCodeAt() + moves[i][0]);
                     let moveNumber = Number(currentFieldId[1]) + Number(moves[i][1]);
                     let moveFieldId = moveLetter + moveNumber;
-                    console.log(moveLetter);
-                    console.log(moveNumber);
                     if (!this.columnNames.includes(moveLetter) || ! this.rowNames.includes(moveNumber)) {   // jeśli ruch wykracza poza szachownicę, kontynuuj
                         continue;
                     }
@@ -84,7 +87,7 @@ const chessGame = {
 
     putPiece(e) {
         if (e.target.querySelector("piece") && this.pieceInHand != null) {
-            console.log("You cannot put 2 pieces on one field!");
+            // console.log("You cannot put 2 pieces on one field!");
             this.unmarkMoves();
             this.pieceInHand = null;
         }
@@ -99,7 +102,10 @@ const chessGame = {
             }
             else if (this.pieceInHand.dataset.onBoard == 1) {
                 if (e.target.className == this.markedChessfield) {
-                    console.log('ok');
+                    // console.log('ok');
+                    this.validate(this.pieceInHand.className, this.pieceInHand.parentElement.id, e.target.id);
+                    
+
                     // TUTAJ WSTAWIĆ FORMULARZ Z PROŚBĄ O WALIDACJĘ RUCHU
 
                     const piece = document.createElement("piece");
@@ -112,7 +118,7 @@ const chessGame = {
                     this.pieceInHand = null;
                 }
                 else {                                      // TO PÓJDZIE DO FORMULARZA W PRZYPADKU BŁĘDNEGO RUCHU
-                    console.log("You can't move here!");
+                    // console.log("You can't move here!");
                     this.unmarkMoves();
                     this.pieceInHand = null;
                 }
@@ -126,6 +132,30 @@ const chessGame = {
             chessfield.classList.replace(this.markedChessfield, "chessfield")
         });
     },
+
+    validate(a,x,y) {
+        console.log("validation");
+        let movement = document.getElementById(y);
+        console.log(x,y, a);
+        
+        $(document).ready(function() {
+                $.ajax({
+                    url: '',
+                    type: 'GET',
+                    data: {
+                        piece: a,
+                        curr: x,
+                        move: y
+                    },
+                    success: function(response) {
+                        console.log(response.answer)
+                    },
+                    failure: function() {
+                        console.log("error")
+                    }
+            });
+        })
+    }
 }
 
 chessGame.createChessboard();
