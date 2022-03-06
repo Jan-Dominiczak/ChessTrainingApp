@@ -180,14 +180,15 @@ const chessGame = {
     },
 
     functionalizeButtons() {
+        let that = this;
         let resetButton = document.querySelector('#reset-chessboard');
         resetButton.addEventListener('click', function() {
             elements = document.querySelectorAll('piece');
             elements.forEach(element => {element.parentElement.removeChild(element)})
-            console.log("Chessboard cleaned")
+            that.cleanChessboard();
+            console.log("Chessboard cleaned");
         });
         let deletePieceButton = document.querySelector('#delete-piece');
-        let that = this;
         deletePieceButton.addEventListener('click', function() {
             if (that.pieceInHand != null) {
                 if (that.pieceInHand.tagName == 'PIECE') {
