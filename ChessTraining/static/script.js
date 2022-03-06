@@ -172,9 +172,24 @@ const chessGame = {
             type: 'GET',
             data: {
                 piece: 'clean',
+                curr: 'all'
             },
             success: function() {
                 console.log('Chessboard cleaned')
+            }
+        })
+    },
+
+    removeFromChessboard(element) {
+        $.ajax({                                                                    // zmiennej przechowującej stan szachownicy po stronie serwera
+            url:'',
+            type: 'GET',
+            data: {
+                piece: 'clean',
+                curr: element
+            },
+            success: function() {
+                console.log('Element deleted')
             }
         })
     },
@@ -194,7 +209,8 @@ const chessGame = {
         deletePieceButton.addEventListener('click', function() {
             if (that.pieceInHand != null) {
                 if (that.pieceInHand.tagName == 'PIECE') {
-                    that.pieceInHand.parentElement.removeChild(that.pieceInHand)
+                    that.removeFromChessboard(that.pieceInHand.parentElement.id);
+                    that.pieceInHand.parentElement.removeChild(that.pieceInHand);
                     that.pieceInHand = null;
                     that.unmarkMoves();
                 }

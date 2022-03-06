@@ -115,3 +115,7 @@ def cleanChessboard():
     for i in chessboard:
         chessboard[i] = None
     return
+
+def removeFromChessboard(field):
+    chessboard[field] = None
+    return

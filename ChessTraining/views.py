@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .pieces import collection, calculatePosition, cleanChessboard
+from .pieces import collection, calculatePosition, cleanChessboard, removeFromChessboard
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
 import json
@@ -10,10 +10,13 @@ class AjaxHandlerView(View):
     def get(self, request):
         if request.is_ajax():
             piece = request.GET.get('piece')
-            if piece == 'clean':                                            # jeśli wysłano żądanie wyczyszczenia szachownicy
+            current = request.GET.get('curr')                                  # jeśli wysłano zapytanie o walidację ruchu
+            if piece == 'clean' and current == 'all':                                            # jeśli wysłano żądanie wyczyszczenia szachownicy
                 cleanChessboard()
                 return JsonResponse({'answer': "Chessboard cleaned"}, status=200)
-            current = request.GET.get('curr')                                  # jeśli wysłano zapytanie o walidację ruchu
+            elif piece == 'clean':
+                removeFromChessboard(current)
+                return JsonResponse({'answer': "Element deleted"}, status=200)
             destination = request.GET.get('move')
             coords = {"name": piece, "move":[current, destination]}
             answer = calculatePosition(coords)
