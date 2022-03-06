@@ -186,6 +186,8 @@ const chessGame = {
             elements = document.querySelectorAll('piece');
             elements.forEach(element => {element.parentElement.removeChild(element)})
             that.cleanChessboard();
+            that.unmarkMoves();
+            that.pieceInHand = null;
             console.log("Chessboard cleaned");
         });
         let deletePieceButton = document.querySelector('#delete-piece');
