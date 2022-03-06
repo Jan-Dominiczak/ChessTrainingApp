@@ -80,5 +80,38 @@ chessboard = {
     'H8': None,
 }
 
-def calculatePosition():
-    return 0
+palette = ['king', 'queen']
+
+def calculatePosition(instruction):
+    pieceType = instruction['name']
+    pieceCurrentPos = instruction['move'][0]
+    pieceMovement = instruction['move'][1]
+    if not pieceMovement in chessboard:
+        return {'type': pieceType, 'movement': pieceMovement, 'info': "Error_move_to_palette"}
+    if pieceCurrentPos in chessboard:                                                   #jeśli figura jest na szachownicy
+        movementCoords = []
+        movementCoords.append(ord(pieceMovement[0]) - ord(pieceCurrentPos[0]))
+        movementCoords.append(int(pieceMovement[1]) - int(pieceCurrentPos[1]))
+        possibleMoves = []
+        for piece in collection:
+            if piece['name'] == pieceType:
+                possibleMoves = piece['moves']
+        if movementCoords in possibleMoves:
+            if chessboard[pieceMovement] != None:
+                return {'type': pieceType, 'movement': pieceMovement, 'info': "Error_multiple_pieces"}
+            chessboard[pieceMovement] = pieceType
+            chessboard[pieceCurrentPos] = None 
+            return {'type': pieceType, 'movement': movementCoords, 'info': "ok"}
+        else:
+            return {'type': pieceType, 'movement': movementCoords, 'info': "Error_forbidden_move"}
+    else:
+        if chessboard[pieceMovement] != None:
+            return {'type': pieceType, 'movement': pieceMovement, 'info': "Error_multiple_pieces"}
+        chessboard[pieceMovement] = pieceType
+        return {'type': pieceType, 'movement': pieceCurrentPos, 'info': "ok"}
+
+
+def cleanChessboard():
+    for i in chessboard:
+        chessboard[i] = None
+    return

@@ -1,27 +1,21 @@
 from django.shortcuts import render
-from .pieces import collection
+from .pieces import collection, calculatePosition, cleanChessboard
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
 import json
-
-def home(request):
-    text = request.GET.get()
-    # print(request.POST('key1'))
-    return render(request,'ChessTraining/home.html', {'collection': collection})
 
 
 class AjaxHandlerView(View):
     
     def get(self, request):
-        # test = "smth",
-        # test2 = "smth else",
         if request.is_ajax():
-
-            test = request.GET.get('curr')
-            test2 = request.GET.get('move')
             piece = request.GET.get('piece')
-            coords = {piece:[test, test2]}
-            print(coords)
-            return JsonResponse({'answer': coords}, status=200)
-
+            if piece == 'clean':                                            # jeśli wysłano żądanie wyczyszczenia szachownicy
+                cleanChessboard()
+                return JsonResponse({'answer': "Chessboard cleaned"}, status=200)
+            current = request.GET.get('curr')                                  # jeśli wysłano zapytanie o walidację ruchu
+            destination = request.GET.get('move')
+            coords = {"name": piece, "move":[current, destination]}
+            answer = calculatePosition(coords)
+            return JsonResponse({'answer': answer}, status=200)
         return render(request, 'ChessTraining/home.html', {'collection': collection})

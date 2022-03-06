@@ -4,6 +4,13 @@ html, body {
     margin: 0; padding: 0;
   }
 
+.buttons {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+}
+
 .chessboard {
   background-image: url("../img/chessboard.png");
   display: grid;
@@ -11,7 +18,7 @@ html, body {
   grid-template-rows: repeat(8, 12.5%);
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30px;
+  margin-top: 15px;
   height: 496px;
   width: 496px;
   border: 1px solid black;

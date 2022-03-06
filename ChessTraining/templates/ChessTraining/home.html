@@ -8,16 +8,18 @@
         <link rel="stylesheet" href="{% static 'css/ChessTraining.css'%}">
     </head>
     <body>
+        <div class="buttons">
+            <button type="button" id="reset-chessboard">Reset szachownicy</button>
+            <button type="button" id="delete-piece">Usuń figurę</button>
+        </div>
         <div class="chessboard">
         </div>
         <div class="chess-palette">
         </div>
-        {{ test }}
-        <!-- <form action="/validate/" method="POST" id="validation-form"></form> -->
         <script>
             const PIECES = {{collection|safe}};
         </script>
-        <script src="http://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
 
         <script src="{% static 'script.js' %}"></script>
     </body>
